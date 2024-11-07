@@ -74,11 +74,11 @@ def add_max_subject_for_group_constraint(model, subject_slots, subjects_per_grou
 
 
 def add_max_subjects_per_day_constraints(model, subject_slots, subjects_per_group):
-    """Обмеження: не більше п'яти предметів на день для кожної групи."""
+    """Обмеження: не більше шести предметів на день для кожної групи."""
     for group in subjects_per_group:
         for day in range(DAYS):
             model.Add(
-                sum(subject_slots[group][(subject, day, hour)] for subject in subjects_per_group[group] for hour in range(HOURS_PER_DAY)) <= 5
+                sum(subject_slots[group][(subject, day, hour)] for subject in subjects_per_group[group] for hour in range(HOURS_PER_DAY)) <= 6
             )
 
 
@@ -120,38 +120,44 @@ def add_max_two_same_subject_per_day_constraints(model, subject_slots, subjects_
 
 
 def add_teacher_constraints(model, subject_slots, teachers_per_subject, subjects_per_group):
-    """Додавання обмежень для вчителів, щоб один вчитель не міг викладати більше одного предмета одночасно."""
-    # Ініціалізація слотових змінних для кожного вчителя
+    """Add constraints to ensure a teacher doesn't teach more than one subject at the same time."""
+
+    # Initialize slot variables for each teacher
     teacher_slots = {}
 
-    # Перебираємо всі групи і предмети, щоб зв'язати їх з вчителями
-    for group, subjects in subjects_per_group.items():
+    # Loop through all groups and subjects to link them to teachers
+    for group, subjects in teachers_per_subject.items():
         for subject, min_hours in subjects.items():
-            teacher = teachers_per_subject.get(subject)
+            teacher = subjects_per_group.get(subject)  # Get the teacher for the subject
             if teacher is None:
-                continue  # Пропустити, якщо немає відповідного вчителя для предмета
+                continue  # Skip if there's no teacher assigned to the subject
 
-            # Ініціалізуємо словник для кожного вчителя, якщо ще не створений
+            # Initialize dictionary for each teacher if not already created
             if teacher not in teacher_slots:
                 teacher_slots[teacher] = {}
 
-            # Додаємо змінні для кожного дня і години, коли викладач може вести предмет
+            # Add variables for each day and hour the teacher could teach
             for day in range(DAYS):
                 for hour in range(HOURS_PER_DAY):
-                    # Якщо змінної для цього дня і години ще немає, ініціалізуємо її
+                    # Initialize variable for this day and hour if it doesn't exist
                     if (day, hour) not in teacher_slots[teacher]:
                         teacher_slots[teacher][(day, hour)] = model.NewBoolVar(f'{teacher}_{day}_{hour}')
 
-                    # Додаємо обмеження на те, що в цьому слоті предмет може викладати тільки один вчитель
-                    model.AddImplication(subject_slots[group][(subject, day, hour)], teacher_slots[teacher][(day, hour)])
+                    # Ensure the teacher can only teach one subject at this time
+                    if (subject, day, hour) in subject_slots[group]:
+                        model.AddImplication(
+                            subject_slots[group][(subject, day, hour)],
+                            teacher_slots[teacher][(day, hour)]
+                        )
 
-    # Додаємо основне обмеження, щоб уникнути конфліктів у розкладі для кожного вчителя
+    # Add primary constraint to prevent scheduling conflicts for each teacher
     for teacher, slots in teacher_slots.items():
         for (curr_day, curr_hour), var in slots.items():
-            # В кожному часовому слоті один вчитель може вести тільки один предмет
+            # Ensure a teacher can only teach one subject in a given time slot
             model.Add(sum(slots[(curr_day, curr_hour)] for (curr_day, curr_hour) in slots) <= 1)
 
     return teacher_slots
+
 
 
 
@@ -165,7 +171,7 @@ def add_all_constraints(model, subject_slots, subjects_per_group, teachers):
     add_no_gaps_constraints(model, subject_slots, subjects_per_group)
     add_non_adjacent_repeats_constraints(model, subject_slots, subjects_per_group)
     add_max_two_same_subject_per_day_constraints(model, subject_slots, subjects_per_group)
-    add_teacher_constraints(model, subject_slots, subjects_per_group, teachers)
+    #add_teacher_constraints(model, subject_slots, subjects_per_group, teachers)
 
 
 # ========================= ФУНКЦІЇ =========================
