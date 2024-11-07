@@ -31,11 +31,7 @@ def visualize_result(solver, subject_slots, subjects_per_group, teachers_per_sub
     ax.legend(loc='upper right', bbox_to_anchor=(1.15, 1), title='Предмети (Викладач)')
     plt.show()
 
-
-import matplotlib.pyplot as plt
-from config import *
-
-def visualize_result_test(solver, subject_slots, subjects_per_group, teachers_per_subject, group_name):
+def visualize_result_full(solver, subject_slots, subjects_per_group, teachers_per_subject, group_name):
     fig, ax = plt.subplots(figsize=(15, 8))
     colors = plt.cm.tab20.colors  # Вибір кольорів для різних предметів
 
