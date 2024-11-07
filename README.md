@@ -1,6 +1,27 @@
-# University Scheduler
+# University Course Scheduler
 
-This project is designed to automate the scheduling process for university courses, adhering to various constraints, using Google OR-Tools. The project accounts for the number of classes for each group, the availability of teachers, and prevents scheduling conflicts for teachers .
+A sophisticated scheduling system that leverages Google OR-Tools to create optimal university timetables. 
+This project intelligently handles complex academic scheduling challenges while maintaining balance between 
+educational requirements and resource constraints.
+
+## Overview
+
+This automated scheduling solution transforms the traditionally complex and time-consuming task of university 
+timetable creation into an efficient, optimized process. By implementing advanced constraint programming techniques, 
+the system generates conflict-free schedules that respect both academic requirements and resource limitations.
+
+## Key Features
+
+- Automated timetable generation
+- Intelligent conflict resolution
+- Group schedule optimization
+- Balanced course distribution
+- Customizable scheduling constraints
+
+## Technology
+
+Built with Python, utilizing Google OR-Tools for constraint programming and optimization. This combination provides 
+a robust foundation for handling complex scheduling scenarios while maintaining high performance and reliability.
 
 ## Project Structure
 
@@ -13,7 +34,9 @@ project_folder/
 ├── excel_loader.py      # Module to load data from Excel files
 ├── data/                
 │   ├── group1_schedule.xlsx  # Schedule data for Group 1
-│   └── group2_schedule.xlsx  # Schedule data for Group 2
+│   ├── group2_schedule.xlsx  # Schedule data for Group 2
+│   ├── group3_schedule.xlsx  # Schedule data for Group 3
+│   └── group4_schedule.xlsx  # Schedule data for Group 4
 └── requirements.txt     # List of required Python packages
 ```
 
@@ -39,7 +62,8 @@ The `config.py` file contains global variables which can be modified to suit you
 - `HOURS_PER_DAY`: Number of hours in a day.
 - `START_HOUR`: Start hour for classes.
 
-In the `data/` directory, you’ll find Excel files with scheduling information for each group (`group1_schedule.xlsx`, `group2_schedule.xlsx`, etc.). These files can be edited or new ones can be added for additional groups.
+In the `data/` directory, you’ll find Excel files with scheduling information for each group (`group1_schedule.xlsx`, 
+`group2_schedule.xlsx`, etc.). These files can be edited or new ones can be added for additional groups.
 
 ## Module Descriptions
 
@@ -53,18 +77,19 @@ The main module which:
 
 ### 2. `config.py`
 
-Contains essential project parameters, including `DAYS`, `HOURS_PER_DAY`, `START_HOUR`, which define the scheduling time limits.
+Contains essential project parameters, including `DAYS`, `HOURS_PER_DAY`, `START_HOUR`, which define the scheduling 
+time limits.
 
 ### 3. `visualizer.py`
 
-Contains the `visualize_result` function, which displays the schedule for each group. It shows classes in their respective time slots for each day, using color-coding for both subjects and teachers.
+Contains the `visualize_result` function, which displays the schedule for each group. It shows classes in their 
+respective time slots for each day, using color-coding for both subjects and teachers.
 
 ### 4. `model_handler.py`
 
 Contains functions for adding variables and constraints:
    - `add_subject_slots`: Creates variables for each subject, group, day, and hour.
    - `add_max_subject_for_group_constraint`: Constraint ensuring each group can only have one class at any given time.
-   - `add_teacher_constraints`: Constraint that prevents a teacher from teaching multiple classes at the same time, avoiding scheduling conflicts.
 
 ### 5. `excel_loader.py`
 
