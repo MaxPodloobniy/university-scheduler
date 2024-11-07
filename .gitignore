@@ -1,0 +1,26 @@
+# PyCharm
+.idea/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.egg-info/
+dist/
+build/
+
+# Virtualenv
+env/
+venv/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temp files
+*.tmp
+*.bak
+*.log
