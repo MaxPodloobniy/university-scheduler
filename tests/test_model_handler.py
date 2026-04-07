@@ -2,7 +2,7 @@ import pytest
 from ortools.sat.python import cp_model
 
 from src.config import Config
-from src.model_handler import (
+from src.constraints import (
     add_max_subjects_per_day_constraints,
     add_minimum_hours_constraints,
     add_non_adjacent_repeats_constraints,

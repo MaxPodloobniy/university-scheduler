@@ -51,17 +51,6 @@ def add_single_class_per_slot_constraints(model, subject_slots, subjects_per_gro
                 )
 
 
-def add_minimal_subject_count_per_period(model, subject_slots, subjects_per_group, config: Config):
-    """Ensure the minimum number of lectures per subject across the entire period."""
-    for group, subjects in subjects_per_group.items():
-        for subject, min_hours in subjects.items():
-            subject_sum = 0
-            for day in range(config.days):
-                for hour in range(config.hours_per_day):
-                    subject_sum += subject_slots[group][(subject, day, hour)]
-
-            model.Add(subject_sum >= min_hours)
-
 
 def add_max_subjects_per_day_constraints(model, subject_slots, subjects_per_group, config: Config):
     """Limit the number of classes per day for each group."""
@@ -101,7 +90,7 @@ def add_non_adjacent_repeats_constraints(model, subject_slots, subjects_per_grou
                     )
 
 
-def add_max_two_same_subject_per_day_constraints(model, subject_slots, subjects_per_group, config: Config):
+def add_one_subject_per_day_constraints(model, subject_slots, subjects_per_group, config: Config):
     """Limit each subject to at most one lesson per day for each group."""
     for group in subjects_per_group:
         for subject in subjects_per_group[group]:
@@ -153,11 +142,10 @@ def add_all_constraints(model, subject_slots, subjects_per_group, teachers, conf
     add_common_subject_constraints(model, subject_slots, subjects_per_group, config)
     add_minimum_hours_constraints(model, subject_slots, subjects_per_group, config)
     add_single_class_per_slot_constraints(model, subject_slots, subjects_per_group, config)
-    add_minimal_subject_count_per_period(model, subject_slots, subjects_per_group, config)
     add_max_subjects_per_day_constraints(model, subject_slots, subjects_per_group, config)
     add_no_gaps_constraints(model, subject_slots, subjects_per_group, config)
     add_non_adjacent_repeats_constraints(model, subject_slots, subjects_per_group, config)
-    add_max_two_same_subject_per_day_constraints(model, subject_slots, subjects_per_group, config)
+    add_one_subject_per_day_constraints(model, subject_slots, subjects_per_group, config)
     # add_teacher_constraints(model, subject_slots, teachers, subjects_per_group, config)
 
 
