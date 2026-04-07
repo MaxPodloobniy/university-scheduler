@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-
 from src.config import DAYS, HOURS_PER_DAY, START_HOUR
 
 # Функція для візуалізації розкладу для кожної групи
