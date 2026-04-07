@@ -1,19 +1,31 @@
-DAYS = 10  # two weeks of working days
-START_HOUR = 9
-HOURS_PER_DAY = 7  # 9:00 to 17:00
-MAX_SUBJECTS_PER_DAY = 6
+import argparse
+import tomllib
+from dataclasses import dataclass, field
+from pathlib import Path
 
-SUBJECTS = [
-    'English', 'Economics', 'Computer Systems', 'Data Science', 'Comp Vision',
-    'Algorithms for electronic voting', 'Data science fundamentals', 'Network and protocols',
-    'Intelligent transport systems', 'Basics of WEB technologies', 'Internet of things technologies',
-    'Reactive programming', 'Engineering computer graphics', 'Simulation modelling'
-]
 
-# Subjects attended by all groups simultaneously (lectures + practicals + labs)
-COMMON_SUBJECTS = [
-    'English', 'Economics', 'Computer Systems', 'Data Science', 'Comp Vision',
-    'Algorithms for electronic voting', 'Data science fundamentals', 'Network and protocols',
-    'Intelligent transport systems', 'Basics of WEB technologies', 'Internet of things technologies',
-    'Reactive programming', 'Engineering computer graphics', 'Simulation modelling'
-]
+@dataclass
+class Config:
+    days: int = 10
+    start_hour: int = 9
+    hours_per_day: int = 7
+    max_subjects_per_day: int = 6
+    subjects: list[str] = field(default_factory=list)
+    common_subjects: list[str] = field(default_factory=list)
+
+    @classmethod
+    def load(cls, args: argparse.Namespace, toml_path: str | None = None) -> "Config":
+        if toml_path is None:
+            toml_path = str(Path(__file__).resolve().parent.parent / "config.toml")
+
+        with open(toml_path, "rb") as f:
+            data = tomllib.load(f)
+
+        return cls(
+            days=args.days,
+            start_hour=args.start_hour,
+            hours_per_day=args.hours_per_day,
+            max_subjects_per_day=args.max_subjects_per_day,
+            subjects=data.get("subjects", []),
+            common_subjects=data.get("common_subjects", []),
+        )

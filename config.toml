@@ -1,0 +1,34 @@
+subjects = [
+    "English",
+    "Economics",
+    "Computer Systems",
+    "Data Science",
+    "Comp Vision",
+    "Algorithms for electronic voting",
+    "Data science fundamentals",
+    "Network and protocols",
+    "Intelligent transport systems",
+    "Basics of WEB technologies",
+    "Internet of things technologies",
+    "Reactive programming",
+    "Engineering computer graphics",
+    "Simulation modelling",
+]
+
+# Subjects attended by all groups simultaneously (lectures + practicals + labs)
+common_subjects = [
+    "English",
+    "Economics",
+    "Computer Systems",
+    "Data Science",
+    "Comp Vision",
+    "Algorithms for electronic voting",
+    "Data science fundamentals",
+    "Network and protocols",
+    "Intelligent transport systems",
+    "Basics of WEB technologies",
+    "Internet of things technologies",
+    "Reactive programming",
+    "Engineering computer graphics",
+    "Simulation modelling",
+]
