@@ -26,18 +26,22 @@ a robust foundation for handling complex scheduling scenarios while maintaining 
 ## Project Structure
 
 ```plaintext
-project_folder/ 
-├── main.py              # Main file to run the program
-├── config.py            # Configuration file with global variables (DAYS, HOURS_PER_DAY, etc.)
-├── visualizer.py        # Visualization functions for displaying schedule results
-├── model_handler.py     # Module to define model variables and constraints
-├── data_loader.py       # Module to load data from Excel files
-├── data/                
-│   ├── group1_schedule.xlsx  # Schedule data for Group 1
-│   ├── group2_schedule.xlsx  # Schedule data for Group 2
-│   ├── group3_schedule.xlsx  # Schedule data for Group 3
-│   └── group4_schedule.xlsx  # Schedule data for Group 4
-└── requirements.txt     # List of required Python packages
+project_folder/
+├── src/
+│   ├── main.py              # Main file to run the program
+│   ├── config.py            # Configuration file with global variables (DAYS, HOURS_PER_DAY, etc.)
+│   ├── model_handler.py     # Module to define model variables and constraints
+│   ├── data_loader.py       # Module to load data from Excel files
+│   └── visualizer.py        # Visualization functions for displaying schedule results
+├── tests/                   # Unit tests
+├── data/
+│   ├── groups/
+│   │   ├── group1_schedule.xlsx  # Schedule data for Group 1
+│   │   ├── group2_schedule.xlsx  # Schedule data for Group 2
+│   │   ├── group3_schedule.xlsx  # Schedule data for Group 3
+│   │   └── group4_schedule.xlsx  # Schedule data for Group 4
+│   └── Teachers.xlsx        # Teacher assignments
+└── requirements.txt         # List of required Python packages
 ```
 
 ## Installation
@@ -128,9 +132,9 @@ teachers_per_subject = {
 
 ## Running the Program
 
-Run the following command to start the project:
+Run the following command from the project root:
 ```bash
-python main.py
+python -m src.main
 ```
 
 ### Visualization Example

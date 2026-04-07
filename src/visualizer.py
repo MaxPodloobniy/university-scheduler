@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from config import DAYS, HOURS_PER_DAY, START_HOUR
+from src.config import DAYS, HOURS_PER_DAY, START_HOUR
 
 # Функція для візуалізації розкладу для кожної групи
 def visualize_result(solver, subject_slots, subjects_per_group, teachers_per_subject, group_name):

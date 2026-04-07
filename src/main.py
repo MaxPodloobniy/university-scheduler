@@ -1,7 +1,10 @@
-from model_handler import add_all_constraints, minimize_slots_usage, add_subject_slots
-from data_loader import load_data_from_excel
-from visualizer import visualize_result_full
+from pathlib import Path
+
 from ortools.sat.python import cp_model
+
+from src.data_loader import load_data_from_excel
+from src.model_handler import add_all_constraints, add_subject_slots, minimize_slots_usage
+from src.visualizer import visualize_result_full
 
 
 def main():
@@ -9,7 +12,8 @@ def main():
     model = cp_model.CpModel()
 
     # Define the subjects for each group, theachers for each subject and their required number of hours
-    teachers, subjects_per_group = load_data_from_excel('data/')
+    project_root = Path(__file__).resolve().parent.parent
+    teachers, subjects_per_group = load_data_from_excel(str(project_root / "data") + "/")
 
     # Add variables to model
     subject_slots = add_subject_slots(model, subjects_per_group)

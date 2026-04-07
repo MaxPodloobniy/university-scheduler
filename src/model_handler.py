@@ -1,4 +1,4 @@
-from config import DAYS, HOURS_PER_DAY, COMMON_SUBJECTS, MAX_SUBJECTS_PER_DAY
+from src.config import COMMON_SUBJECTS, DAYS, HOURS_PER_DAY, MAX_SUBJECTS_PER_DAY
 
 # ========================= VARIABLES =========================
 
