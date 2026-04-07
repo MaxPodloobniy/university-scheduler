@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from ortools.sat.python import cp_model
+
 from src.data_loader import load_data_from_excel
 from src.model_handler import add_all_constraints, add_subject_slots, minimize_slots_usage
 from src.visualizer import visualize_result_full
