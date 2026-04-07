@@ -9,7 +9,8 @@ SUBJECTS = [
     'Intelligent transport systems', 'Basics of WEB technologies', 'Internet of things technologies',
     'Reactive programming', 'Engineering computer graphics', 'Simulation modelling'
 ]
-# General subjects (attended by all groups at the same time, it is necessary because there are lectures and practicals and laboratory work)
+# General subjects (attended by all groups at the same time,
+# it is necessary because there are lectures and practicals and laboratory work)
 COMMON_SUBJECTS = [
     'English', 'Economics', 'Computer Systems', 'Data Science', 'Comp Vision',
     'Algorithms for electronic voting', 'Data science fundamentals', 'Network and protocols',

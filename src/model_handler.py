@@ -37,7 +37,11 @@ def add_minimum_hours_constraints(model, subject_slots, subjects_per_group):
     for group, subjects in subjects_per_group.items():
         for subject, min_hours in subjects.items():
             model.Add(
-                sum(subject_slots[group][(subject, day, hour)] for day in range(DAYS) for hour in range(HOURS_PER_DAY)) >= min_hours
+                sum(
+                    subject_slots[group][(subject, day, hour)]
+                    for day in range(DAYS)
+                    for hour in range(HOURS_PER_DAY)
+                ) >= min_hours
             )
 
 
@@ -69,7 +73,11 @@ def add_max_subjects_per_day_constraints(model, subject_slots, subjects_per_grou
     for group in subjects_per_group:
         for day in range(DAYS):
             model.Add(
-                sum(subject_slots[group][(subject, day, hour)] for subject in subjects_per_group[group] for hour in range(HOURS_PER_DAY)) <= MAX_SUBJECTS_PER_DAY
+                sum(
+                    subject_slots[group][(subject, day, hour)]
+                    for subject in subjects_per_group[group]
+                    for hour in range(HOURS_PER_DAY)
+                ) <= MAX_SUBJECTS_PER_DAY
             )
 
 
@@ -111,7 +119,8 @@ def add_max_two_same_subject_per_day_constraints(model, subject_slots, subjects_
 
 
 def add_teacher_constraints(model, subject_slots, teachers_per_subject, subjects_per_group):
-    """Add constraints to ensure a teacher doesn't teach more than one subject at the same time across groups, with shared handling for common subjects."""
+    """Add constraints to ensure a teacher doesn't teach more than one subject
+    at the same time across groups, with shared handling for common subjects."""
     teacher_busy_slots = {}
 
     for group, subjects in subjects_per_group.items():
