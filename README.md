@@ -31,7 +31,7 @@ project_folder/
 ├── config.py            # Configuration file with global variables (DAYS, HOURS_PER_DAY, etc.)
 ├── visualizer.py        # Visualization functions for displaying schedule results
 ├── model_handler.py     # Module to define model variables and constraints
-├── excel_loader.py      # Module to load data from Excel files
+├── data_loader.py       # Module to load data from Excel files
 ├── data/                
 │   ├── group1_schedule.xlsx  # Schedule data for Group 1
 │   ├── group2_schedule.xlsx  # Schedule data for Group 2
@@ -91,9 +91,10 @@ Contains functions for adding variables and constraints:
    - `add_subject_slots`: Creates variables for each subject, group, day, and hour.
    - `add_max_subject_for_group_constraint`: Constraint ensuring each group can only have one class at any given time.
 
-### 5. `excel_loader.py`
+### 5. `data_loader.py`
 
-Loads class schedule data from Excel files for each group and creates the `subjects_per_group` and `teachers_per_subject` dictionaries, which are used to configure variables and constraints in the model.
+Loads class schedule data from Excel files for each group and creates the `subjects_per_group` and `teachers_per_subject`
+dictionaries, which are used to configure variables and constraints in the model.
 
 ## Data Structure Examples
 
